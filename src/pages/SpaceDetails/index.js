@@ -5,10 +5,12 @@ import { spaceDetailsThunk } from "../../store/spaces/thunks";
 
 import { selectSpaceDetails } from "../../store/spaces/selectors";
 import { useParams } from "react-router-dom";
+import StoryCard from "../../components/StoryCard";
 
 export default function SpaceDetails() {
   const dispatch = useDispatch();
   const details = useSelector(selectSpaceDetails);
+
   const spaceId = useParams().id;
 
   useEffect(() => {
@@ -23,6 +25,14 @@ export default function SpaceDetails() {
       <h2>Space Details</h2>
       <h3>{details?.title}</h3>
       <h4>{details?.description}</h4>
+      {details?.stories?.map((story) => (
+        <StoryCard
+          id={story.id}
+          name={story.name}
+          content={story.content}
+          imageUrl={story.imageUrl}
+        />
+      ))}
     </div>
   );
 }
