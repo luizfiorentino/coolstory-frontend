@@ -22,9 +22,13 @@ export const spaceListSlice = createSlice({
       state.spaceDetails = action.payload;
       console.log("space details slice", action.payload);
     },
+    addNewSpace: (state, action) => {
+      state.allSpaces = [...state.allSpaces, action.payload.newUser];
+      console.log("add space slice=", action.payload);
+    },
   },
 });
 
-export const { startLoading, fetchAllSpaces, fetchSpaceDetails } =
+export const { startLoading, fetchAllSpaces, fetchSpaceDetails, addNewSpace } =
   spaceListSlice.actions;
 export default spaceListSlice.reducer;
