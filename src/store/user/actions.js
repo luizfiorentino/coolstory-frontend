@@ -1,12 +1,12 @@
 import { apiUrl } from "../../config/constants";
 import axios from "axios";
-import { selectToken } from "./selectors";
+import { selectToken, selectUser, selectSpaceId } from "./selectors";
 import { appLoading, appDoneLoading, setMessage } from "../appState/slice";
 import { showMessageWithTimeout } from "../appState/actions";
 import { loginSuccess, logOut, tokenStillValid } from "./slice";
 import { addNewSpace } from "../spaces/slice";
 import { createNextState } from "@reduxjs/toolkit";
-import { postNewStory, deleteStory } from "./slice";
+import { postNewStory, deleteStory, updateProfile } from "./slice";
 
 export const signUp = (name, email, password) => {
   return async (dispatch, getState) => {
@@ -164,6 +164,43 @@ export const deleteThisStory = (storyId) => {
       const deleteRequest = await axios.delete(`${apiUrl}/stories/${storyId}`);
       dispatch(deleteStory(storyId));
       dispatch(appDoneLoading());
+    } catch (e) {
+      console.log(e);
+      dispatch(appDoneLoading());
+    }
+  };
+};
+
+export const updateSpace = (title, description, backgroundColor, color) => {
+  return async (dispatch, getState) => {
+    // get token from the state
+    const token = selectToken(getState());
+
+    // if we have no token, stop
+    if (token === null) return;
+    const id = selectSpaceId(getState());
+
+    if (!id) return;
+
+    console.log("action upSpace", id);
+
+    dispatch(appLoading());
+    try {
+      const editedProfile = await axios.put(
+        `${apiUrl}/spaces/${id}`,
+        {
+          title,
+          description,
+          backgroundColor,
+          color,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      dispatch(updateProfile(editedProfile.data));
+      dispatch(appDoneLoading());
+      console.log("edited prof actions", editedProfile.data);
     } catch (e) {
       console.log(e);
       dispatch(appDoneLoading());

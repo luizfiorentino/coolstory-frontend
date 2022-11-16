@@ -38,6 +38,12 @@ export const userSlice = createSlice({
         (story) => story.id !== action.payload
       );
     },
+    updateProfile: (state, action) => {
+      state.userSpace.title = action.payload.title;
+      state.userSpace.description = action.payload.description;
+      state.userSpace.backgroundColor = action.payload.backgroundColor;
+      state.userSpace.color = action.payload.color;
+    },
   },
 });
 
@@ -47,6 +53,7 @@ export const {
   tokenStillValid,
   deleteStory,
   postNewStory,
+  updateProfile,
 } = userSlice.actions;
 
 export default userSlice.reducer;
