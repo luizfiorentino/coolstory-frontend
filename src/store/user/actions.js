@@ -129,14 +129,25 @@ export const getUserWithStoredToken = () => {
 
 export const postStory = (name, content, imageUrl, spaceId) => {
   return async (dispatch, getState) => {
+    // get token from the state
+    const token = selectToken(getState());
+
+    // if we have no token, stop
+    if (token === null) return;
     dispatch(appLoading());
     try {
-      const newStory = await axios.post(`${apiUrl}/stories`, {
-        name,
-        content,
-        imageUrl,
-        spaceId,
-      });
+      const newStory = await axios.post(
+        `${apiUrl}/stories`,
+        {
+          name,
+          content,
+          imageUrl,
+          spaceId,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       dispatch(postNewStory(newStory));
       dispatch(appDoneLoading());
     } catch (e) {
