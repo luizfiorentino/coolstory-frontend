@@ -5,6 +5,8 @@ import { appLoading, appDoneLoading, setMessage } from "../appState/slice";
 import { showMessageWithTimeout } from "../appState/actions";
 import { loginSuccess, logOut, tokenStillValid } from "./slice";
 import { addNewSpace } from "../spaces/slice";
+import { createNextState } from "@reduxjs/toolkit";
+import { deleteStory } from "./slice";
 
 export const signUp = (name, email, password) => {
   return async (dispatch, getState) => {
@@ -57,7 +59,11 @@ export const login = (email, password) => {
       });
 
       dispatch(
-        loginSuccess({ token: response.data.token, user: response.data.user })
+        loginSuccess({
+          token: response.data.token,
+          user: response.data.user,
+          userSpace: response.data.userSpace,
+        })
       );
       dispatch(showMessageWithTimeout("success", false, "welcome back!", 1500));
       dispatch(appDoneLoading());
@@ -103,7 +109,9 @@ export const getUserWithStoredToken = () => {
       });
 
       // token is still valid
-      dispatch(tokenStillValid({ user: response.data }));
+      dispatch(
+        tokenStillValid({ user: response.data, userSpace: response.data.space })
+      );
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
@@ -114,6 +122,20 @@ export const getUserWithStoredToken = () => {
       // if we get a 4xx or 5xx response,
       // get rid of the token by logging out
       dispatch(logOut());
+      dispatch(appDoneLoading());
+    }
+  };
+};
+
+export const deleteThisStory = (storyId) => {
+  return async (dispatch, getState) => {
+    dispatch(appLoading());
+    try {
+      const deleteRequest = await axios.delete(`${apiUrl}/stories/${storyId}`);
+      dispatch(deleteStory(storyId));
+      dispatch(appDoneLoading());
+    } catch (e) {
+      console.log(e);
       dispatch(appDoneLoading());
     }
   };

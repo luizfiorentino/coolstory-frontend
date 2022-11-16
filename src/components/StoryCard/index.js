@@ -5,7 +5,7 @@ export default function StoryCard(props) {
     <div>
       <h3>{props.name}</h3>
       <h4>{props.content}</h4>
-      <img src={props.imageUrl} alt="foto from story" />
+      <img src={props.imageUrl} alt="foto from story" style={{ width: 500 }} />
     </div>
   );
 }

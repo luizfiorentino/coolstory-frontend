@@ -14,6 +14,7 @@ import { selectAppLoading } from "./store/appState/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 import HeroBanner from "./components/HeroBanner";
 import SpaceDetails from "./pages/SpaceDetails";
+import MySpace from "./pages/MySpace";
 
 const Home = () => (
   <HeroBanner>
@@ -47,6 +48,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/spaces/:id" element={<SpaceDetails />} />
+        <Route path="/mySpace" element={<MySpace />} />
       </Routes>
     </div>
   );
