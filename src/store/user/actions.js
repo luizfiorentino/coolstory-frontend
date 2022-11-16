@@ -6,7 +6,7 @@ import { showMessageWithTimeout } from "../appState/actions";
 import { loginSuccess, logOut, tokenStillValid } from "./slice";
 import { addNewSpace } from "../spaces/slice";
 import { createNextState } from "@reduxjs/toolkit";
-import { deleteStory } from "./slice";
+import { postNewStory, deleteStory } from "./slice";
 
 export const signUp = (name, email, password) => {
   return async (dispatch, getState) => {
@@ -123,6 +123,25 @@ export const getUserWithStoredToken = () => {
       // get rid of the token by logging out
       dispatch(logOut());
       dispatch(appDoneLoading());
+    }
+  };
+};
+
+export const postStory = (name, content, imageUrl, spaceId) => {
+  return async (dispatch, getState) => {
+    dispatch(appLoading());
+    try {
+      const newStory = await axios.post(`${apiUrl}/stories`, {
+        name,
+        content,
+        imageUrl,
+        spaceId,
+      });
+      dispatch(postNewStory(newStory));
+      dispatch(appDoneLoading());
+    } catch (e) {
+      dispatch(appDoneLoading());
+      return e.message;
     }
   };
 };
