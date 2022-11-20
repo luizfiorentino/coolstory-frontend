@@ -14,7 +14,7 @@ import { Col } from "react-bootstrap";
 import { postStory, updateSpace } from "../../store/user/actions";
 import { Next } from "react-bootstrap/esm/PageItem";
 
-export default function EditProfileForm() {
+export default function EditProfileForm(props) {
   const dispatch = useDispatch();
   const userSpace = useSelector(selectUserSpace);
 
@@ -34,6 +34,7 @@ export default function EditProfileForm() {
     setDescription(userSpace.description);
     setBackgroundColor(userSpace.backgroundColor);
     setColor(userSpace.color);
+    props.hideForm(false);
   }
 
   return (

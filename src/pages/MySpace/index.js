@@ -50,6 +50,11 @@ export default function MySpace() {
     showEditForm === true ? userSpace.color : null
   );
 
+  const hideForm = (boolean) => {
+    setEditForm(boolean);
+    console.log("callback prop called", boolean);
+  };
+
   function postCoolStory() {
     setShowForm(true);
   }
@@ -217,7 +222,9 @@ export default function MySpace() {
           }}
         >
           <button onClick={openForm}>Edit my space</button>
-          {showEditForm === true ? <EditProfileForm /> : undefined}
+          {showEditForm === true ? (
+            <EditProfileForm hideForm={hideForm} />
+          ) : undefined}
           <h3>{userSpace.title}</h3>
           <h4>{userSpace.description}</h4>
           <div className="stories-container">
