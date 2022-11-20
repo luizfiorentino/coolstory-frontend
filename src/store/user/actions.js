@@ -1,6 +1,6 @@
 import { apiUrl } from "../../config/constants";
 import axios from "axios";
-import { selectToken, selectUser, selectSpaceId } from "./selectors";
+import { selectToken, selectUser, selectUserSpace } from "./selectors";
 import { appLoading, appDoneLoading, setMessage } from "../appState/slice";
 import { showMessageWithTimeout } from "../appState/actions";
 import { loginSuccess, logOut, tokenStillValid } from "./slice";
@@ -178,7 +178,9 @@ export const updateSpace = (title, description, backgroundColor, color) => {
 
     // if we have no token, stop
     if (token === null) return;
-    const id = selectSpaceId(getState());
+    const space = selectUserSpace(getState());
+
+    const id = space.id;
 
     if (!id) return;
 

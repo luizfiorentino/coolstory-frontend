@@ -39,10 +39,18 @@ export const userSlice = createSlice({
       );
     },
     updateProfile: (state, action) => {
-      state.userSpace.title = action.payload.title;
-      state.userSpace.description = action.payload.description;
-      state.userSpace.backgroundColor = action.payload.backgroundColor;
-      state.userSpace.color = action.payload.color;
+      const { title, description, backgroundColor, color } = action.payload;
+      state.userSpace = {
+        ...state.userSpace,
+        title: title,
+        description: description,
+        backgroundColor: backgroundColor,
+        color: color,
+      };
+      // state.userSpace.title = action.payload.title;
+      // state.userSpace.description = action.payload.description;
+      // state.userSpace.backgroundColor = action.payload.backgroundColor;
+      // state.userSpace.color = action.payload.color;
     },
   },
 });
