@@ -5,6 +5,7 @@ import { allSpacesThunk } from "../../store/spaces/thunks";
 import HeroBanner from "../../components/HeroBanner";
 import SpaceCard from "../../components/SpaceCard";
 import { selectAllSpaces } from "../../store/spaces/selectors";
+import "./styles.css";
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -18,13 +19,22 @@ export default function HomePage() {
     <div>
       <HeroBanner>
         <h1>Home</h1>
-        <div>
-          <h3>Check out the list of spaces!</h3>
+      </HeroBanner>
+      <div className="home-page-content">
+        <div className="list-of-spaces-call">
+          <h3 className="list-of-spaces-text">Check out our users' spaces!</h3>
+        </div>
+        <div className="space-items">
           {spaces.map((space) => (
-            <SpaceCard title={space.title} id={space.id} />
+            <SpaceCard
+              title={space.title}
+              id={space.id}
+              backgroundColor={space.backgroundColor}
+              color={space.color}
+            />
           ))}
         </div>
-      </HeroBanner>
+      </div>
     </div>
   );
 }

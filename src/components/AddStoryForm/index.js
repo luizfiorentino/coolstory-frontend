@@ -15,7 +15,7 @@ import { postStory, updateSpace } from "../../store/user/actions";
 import { Next } from "react-bootstrap/esm/PageItem";
 import EditProfileForm from "../../components/EditProfileForm";
 
-export default function AddStoryForm() {
+export default function AddStoryForm(props) {
   const dispatch = useDispatch();
   const userSpace = useSelector(selectUserSpace);
   const [name, setName] = useState("");
@@ -37,6 +37,7 @@ export default function AddStoryForm() {
     setImageUrl("");
     setName("");
     //setValidationErrorMessage(false);
+    props.hideForm(false);
   }
 
   return (

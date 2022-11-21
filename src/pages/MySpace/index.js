@@ -23,14 +23,19 @@ export default function MySpace() {
     setEditForm(true);
   }
 
+  function openStoryForm() {
+    setStoryForm(true);
+  }
+
   console.log("userSPace", userSpace);
 
   // const spaceId = userSpace?.id;
   const spaceId = userSpace?.id;
   const token = useSelector(selectToken);
-  const stories = [...userSpace.stories];
+  const stories = userSpace ? [...userSpace.stories] : null;
   console.log("mySpace page userSpace", userSpace);
   const [showForm, setShowForm] = useState(false);
+  const [showStoryForm, setStoryForm] = useState(false);
   const [showEditForm, setEditForm] = useState(false);
   console.log("showEditForm:::", showEditForm);
   const [successMessage, setSuccessMessage] = useState(false);
@@ -55,6 +60,11 @@ export default function MySpace() {
 
   const hideForm = (boolean) => {
     setEditForm(boolean);
+    console.log("callback prop called", boolean);
+  };
+
+  const hideStoryForm = (boolean) => {
+    setStoryForm(boolean);
     console.log("callback prop called", boolean);
   };
 
@@ -262,7 +272,10 @@ export default function MySpace() {
       ) : (
         "loading"
       )}
-      <AddStoryForm />
+      <button onClick={openStoryForm}>Add a story bro!</button>
+      {showStoryForm === true ? (
+        <AddStoryForm hideForm={hideStoryForm} />
+      ) : undefined}
     </div>
   );
 }
