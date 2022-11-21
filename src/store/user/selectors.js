@@ -7,3 +7,4 @@ export const selectUserSpace = (state) => state.user.userSpace;
 //export const selectSpaceId = (state) => state.user.profile.userSpace.id;
 
 //selectSpaceCurrentDetails = (state) => state.us
+//export const selectStories = (state) => state.user?.userSpace?.stories;

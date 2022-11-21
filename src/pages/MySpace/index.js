@@ -14,6 +14,7 @@ import { Col } from "react-bootstrap";
 import { postStory, updateSpace } from "../../store/user/actions";
 import { Next } from "react-bootstrap/esm/PageItem";
 import EditProfileForm from "../../components/EditProfileForm";
+import AddStoryForm from "../../components/AddStoryForm";
 
 export default function MySpace() {
   const dispatch = useDispatch();
@@ -21,12 +22,14 @@ export default function MySpace() {
   function openForm() {
     setEditForm(true);
   }
+
   console.log("userSPace", userSpace);
 
   // const spaceId = userSpace?.id;
   const spaceId = userSpace?.id;
   const token = useSelector(selectToken);
-
+  const stories = [...userSpace.stories];
+  console.log("mySpace page userSpace", userSpace);
   const [showForm, setShowForm] = useState(false);
   const [showEditForm, setEditForm] = useState(false);
   console.log("showEditForm:::", showEditForm);
@@ -209,6 +212,13 @@ export default function MySpace() {
   //   );
   // };
 
+  // const storiesSortedByDate = userSpace?.stories?.sort(function (a, b) {
+  //   return new Date(b.createdAt) - new Date(a.createdAt);
+  // });
+
+  const sort_date = (story_a, story_b) => {
+    return story_b.createdAt.localeCompare(story_a.createdAt);
+  };
   return (
     <div>
       {" "}
@@ -228,27 +238,31 @@ export default function MySpace() {
           <h3>{userSpace.title}</h3>
           <h4>{userSpace.description}</h4>
           <div className="stories-container">
-            {userSpace
-              ? userSpace.stories?.map((story) => (
-                  <StoryProfile
-                    id={story.id}
-                    name={story.name}
-                    content={story.content}
-                    imageUrl={story.imageUrl}
-                  />
-                ))
+            {stories
+              ? stories
+                  .sort(sort_date)
+                  .map((story, index) => (
+                    <StoryProfile
+                      key={index}
+                      id={story.id}
+                      name={story.name}
+                      content={story.content}
+                      imageUrl={story.imageUrl}
+                    />
+                  ))
               : "Loading"}
           </div>
           {successMessage === true ? (
             <h3>Story Successfully Posted bro!</h3>
           ) : undefined}
 
-          <button onClick={postCoolStory}>Post a cool story bro</button>
-          {showForm === true ? SendForm() : undefined}
+          {/* <button onClick={postCoolStory}>Post a cool story bro</button>
+          {showForm === true ? SendForm() : undefined} */}
         </div>
       ) : (
         "loading"
       )}
+      <AddStoryForm />
     </div>
   );
 }
