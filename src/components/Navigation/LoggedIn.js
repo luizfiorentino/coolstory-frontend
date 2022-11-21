@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import { selectUser } from "../../store/user/selectors";
 import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
+import "./styles.css";
 export default function LoggedIn() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
@@ -13,12 +14,15 @@ export default function LoggedIn() {
       <Nav.Item style={{ padding: ".5rem 1rem" }}>{user?.email}</Nav.Item>
       <Button>
         {""}
-        <Link to="/mySpace" style={{ color: "white" }}>
-          My Space
-        </Link>
+        <div>
+          <Link to="/mySpace" className="my-space-link">
+            My Space
+          </Link>
+        </div>
       </Button>
-
-      <Button onClick={() => dispatch(logOut())}>Logout</Button>
+      <div className="logout-button">
+        <Button onClick={() => dispatch(logOut())}>Logout</Button>
+      </div>
     </>
   );
 }
