@@ -1,0 +1,49 @@
+.space-header {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  padding: 2rem;
+}
+
+.user-space-title {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  height: 7rem;
+  max-width: 50rem;
+  margin-bottom: 2rem;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+
+  align-content: center;
+}
+
+.title {
+  justify-content: center;
+}
+
+.edit-space-button {
+  margin-top: 3px;
+  margin-bottom: 1rem;
+}
+
+.user-space-description {
+  padding: 1rem;
+}
+
+.user-stories-call {
+  padding: 1rem;
+}
+
+.stories-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}

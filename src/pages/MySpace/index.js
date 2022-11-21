@@ -15,7 +15,7 @@ import { postStory, updateSpace } from "../../store/user/actions";
 import { Next } from "react-bootstrap/esm/PageItem";
 import EditProfileForm from "../../components/EditProfileForm";
 import AddStoryForm from "../../components/AddStoryForm";
-
+import "./styles.css";
 export default function MySpace() {
   const dispatch = useDispatch();
   const userSpace = useSelector(selectUserSpace);
@@ -229,10 +229,11 @@ export default function MySpace() {
   const sort_date = (story_a, story_b) => {
     return story_b.createdAt.localeCompare(story_a.createdAt);
   };
+
   return (
-    <div>
+    <div className="my-space-main-container">
       {" "}
-      <h2>My Space</h2>
+      <h4>My Space</h4>
       {userSpace ? (
         <div
           className="main-container"
@@ -241,12 +242,34 @@ export default function MySpace() {
             color: userSpace.color,
           }}
         >
-          <button onClick={openForm}>Edit my space</button>
-          {showEditForm === true ? (
-            <EditProfileForm hideForm={hideForm} />
-          ) : undefined}
-          <h3>{userSpace.title}</h3>
-          <h4>{userSpace.description}</h4>
+          <div className="space-header">
+            <div className="user-space-title">
+              <h2 className="title">{userSpace.title}</h2>
+            </div>
+            <div className="edit-space-button">
+              {" "}
+              <button onClick={openForm}>Edit my space</button>
+              {showEditForm === true ? (
+                <EditProfileForm hideForm={hideForm} />
+              ) : undefined}
+            </div>
+            <div className="user-space-description">
+              <h4>{userSpace.description}</h4>
+            </div>
+            <div className="user-stories-call">
+              {stories.length === 0 || !stories ? (
+                <h5>User posted stories yet</h5>
+              ) : (
+                <h5>Check out my stories</h5>
+              )}
+            </div>
+            <div className="add-story-button">
+              <button onClick={openStoryForm}>Add a story bro!</button>
+              {showStoryForm === true ? (
+                <AddStoryForm hideForm={hideStoryForm} />
+              ) : undefined}
+            </div>
+          </div>
           <div className="stories-container">
             {stories
               ? stories
@@ -272,10 +295,6 @@ export default function MySpace() {
       ) : (
         "loading"
       )}
-      <button onClick={openStoryForm}>Add a story bro!</button>
-      {showStoryForm === true ? (
-        <AddStoryForm hideForm={hideStoryForm} />
-      ) : undefined}
     </div>
   );
 }
