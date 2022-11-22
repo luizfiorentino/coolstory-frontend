@@ -13,6 +13,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { Col } from "react-bootstrap";
 import { postStory, updateSpace } from "../../store/user/actions";
 import { Next } from "react-bootstrap/esm/PageItem";
+import "./styles.css";
 
 export default function EditProfileForm(props) {
   const dispatch = useDispatch();
@@ -38,13 +39,15 @@ export default function EditProfileForm(props) {
   }
 
   return (
-    <div>
+    <div className="edit-form-main">
       <div>
-        <Container>
-          <Form as={Col} md={{ span: 6, offset: 3 }} className="mt-5">
-            <h1 className="mt-5 mb-5">edit profile</h1>
+        <Container className="edit-form-main">
+          {/* <Form as={Col} className="form-field"> */}
+          <Form as={Col} md={{ span: 6, offset: 3 }} className="form-field">
+            {/* <Form as={Col} md={{ span: 6, offset: 3 }} className="mt-5"> */}
+            <h3>edit profile</h3>
             <Form.Group>
-              <Form.Label>Title</Form.Label>
+              <Form.Label className="form-field-inner">Title</Form.Label>
 
               <Form.Control
                 value={title}
@@ -55,7 +58,7 @@ export default function EditProfileForm(props) {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Description</Form.Label>
+              <Form.Label className="form-field-inner">Description</Form.Label>
               <Form.Control
                 value={description}
                 onChange={(event) => setDescription(event.target.value)}
@@ -66,24 +69,24 @@ export default function EditProfileForm(props) {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>Background Color</Form.Label>
+              <Form.Label className="form-field-inner">
+                Background Color
+              </Form.Label>
               <input
+                className="color-input"
                 type="color"
                 // id="head"
                 // name="head"
+
                 value={backgroundColor}
                 onChange={(event) => setBackgroundColor(event.target.value)}
               ></input>
               {/* <label for="head">Head</label> */}
-
-              <p>
-                {" "}
-                values= {title}, {description}, {backgroundColor}, {color}
-              </p>
             </Form.Group>
             <Form.Group>
-              <Form.Label>Color</Form.Label>
+              <Form.Label className="form-field-inner">Color</Form.Label>
               <input
+                className="color-input"
                 type="color"
                 // id="head"
                 // name="head"

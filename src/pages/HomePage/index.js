@@ -11,6 +11,9 @@ export default function HomePage() {
   const dispatch = useDispatch();
   const spaces = useSelector(selectAllSpaces);
 
+  const allSpaces = spaces ? [...spaces] : null;
+  console.log("HP all spaces:", allSpaces);
+
   useEffect(() => {
     dispatch(allSpacesThunk);
   }, [dispatch]);
@@ -25,14 +28,16 @@ export default function HomePage() {
           <h3 className="list-of-spaces-text">Check out our users' spaces!</h3>
         </div>
         <div className="space-items">
-          {spaces.map((space) => (
-            <SpaceCard
-              title={space.title}
-              id={space.id}
-              backgroundColor={space.backgroundColor}
-              color={space.color}
-            />
-          ))}
+          {allSpaces
+            ? allSpaces.map((space) => (
+                <SpaceCard
+                  title={space?.title}
+                  id={space?.id}
+                  backgroundColor={space?.backgroundColor}
+                  color={space?.color}
+                />
+              ))
+            : "Loading"}
         </div>
       </div>
     </div>

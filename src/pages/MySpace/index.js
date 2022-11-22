@@ -32,7 +32,8 @@ export default function MySpace() {
   // const spaceId = userSpace?.id;
   const spaceId = userSpace?.id;
   const token = useSelector(selectToken);
-  const stories = userSpace ? [...userSpace.stories] : null;
+  const stories =
+    !userSpace || !userSpace.stories ? null : [...userSpace?.stories];
   console.log("mySpace page userSpace", userSpace);
   const [showForm, setShowForm] = useState(false);
   const [showStoryForm, setStoryForm] = useState(false);
@@ -248,7 +249,9 @@ export default function MySpace() {
             </div>
             <div className="edit-space-button">
               {" "}
-              <button onClick={openForm}>Edit my space</button>
+              {showEditForm === false ? (
+                <button onClick={openForm}>Edit my space</button>
+              ) : undefined}
               {showEditForm === true ? (
                 <EditProfileForm hideForm={hideForm} />
               ) : undefined}
@@ -258,7 +261,7 @@ export default function MySpace() {
             </div>
             <div className="user-stories-call">
               {stories.length === 0 || !stories ? (
-                <h5>User posted stories yet</h5>
+                <h5>User posted no stories yet</h5>
               ) : (
                 <h5>Check out my stories</h5>
               )}
