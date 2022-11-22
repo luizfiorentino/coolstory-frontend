@@ -22,6 +22,7 @@ export const userSlice = createSlice({
       localStorage.removeItem("token");
       state.token = null;
       state.profile = null;
+      state.userSpace = null;
     },
     tokenStillValid: (state, action) => {
       state.profile = action.payload.user;

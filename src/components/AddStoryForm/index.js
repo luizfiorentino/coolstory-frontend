@@ -14,6 +14,7 @@ import { Col } from "react-bootstrap";
 import { postStory, updateSpace } from "../../store/user/actions";
 import { Next } from "react-bootstrap/esm/PageItem";
 import EditProfileForm from "../../components/EditProfileForm";
+import "./styles.css";
 
 export default function AddStoryForm(props) {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ export default function AddStoryForm(props) {
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [validationErrorMessage, setValidationErrorMessage] = useState(false);
 
   const spaceId = userSpace?.id;
 
@@ -28,6 +30,7 @@ export default function AddStoryForm(props) {
     event.preventDefault();
     if (!name || !content || !imageUrl) {
       //setValidationErrorMessage(true);
+      setValidationErrorMessage(true);
       return;
     }
     dispatch(postStory(name, content, imageUrl, spaceId));
@@ -77,9 +80,9 @@ export default function AddStoryForm(props) {
         </Form.Group>
         <h3>Image Preview</h3>
         <img src={imageUrl} />
-        {/* {validationErrorMessage === true ? (
-            <h3>Please fill in all the fields above</h3>
-          ) : undefined} */}
+        {validationErrorMessage === true ? (
+          <p className="error-message">Please fill in all the fields above</p>
+        ) : undefined}
         <Form.Group className="mt-5">
           <Button variant="primary" type="submit" onClick={submitForm}>
             Post your cool story bro!

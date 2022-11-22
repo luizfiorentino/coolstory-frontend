@@ -14,6 +14,10 @@ export default function HomePage() {
   const allSpaces = spaces ? [...spaces] : null;
   console.log("HP all spaces:", allSpaces);
 
+  const spacesAlphaOrder = (space_a, space_b) => {
+    return space_a.title.localeCompare(space_b.title);
+  };
+
   useEffect(() => {
     dispatch(allSpacesThunk);
   }, [dispatch]);
@@ -29,14 +33,16 @@ export default function HomePage() {
         </div>
         <div className="space-items">
           {allSpaces
-            ? allSpaces.map((space) => (
-                <SpaceCard
-                  title={space?.title}
-                  id={space?.id}
-                  backgroundColor={space?.backgroundColor}
-                  color={space?.color}
-                />
-              ))
+            ? allSpaces
+                .sort(spacesAlphaOrder)
+                .map((space) => (
+                  <SpaceCard
+                    title={space?.title}
+                    id={space?.id}
+                    backgroundColor={space?.backgroundColor}
+                    color={space?.color}
+                  />
+                ))
             : "Loading"}
         </div>
       </div>
