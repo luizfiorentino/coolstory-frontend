@@ -1,0 +1,25 @@
+img {
+  width: 500px;
+  margin-left: 1rem;
+}
+.story-card-main {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: top;
+
+  width: 600px;
+
+  margin: 2rem;
+  border: 1px solid black;
+  padding: 2rem;
+}
+
+.story-title {
+  padding: 1rem;
+}
+
+.story-content {
+  padding: 1rem;
+  font-size: 18px;
+}
