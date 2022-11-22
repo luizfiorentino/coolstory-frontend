@@ -37,6 +37,15 @@
   margin-bottom: 1rem;
 }
 
+.add-story-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 3px;
+  margin-bottom: 1rem;
+}
+
 .user-space-description {
   padding: 1rem;
 }

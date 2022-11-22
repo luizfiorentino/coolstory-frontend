@@ -44,51 +44,57 @@ export default function AddStoryForm(props) {
   }
 
   return (
-    <Container>
-      <Form as={Col} md={{ span: 6, offset: 3 }} className="mt-5">
-        <h1 className="mt-5 mb-5">Share your story!</h1>
-        <Form.Group>
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            type="text"
-            placeholder="Enter name"
-            required
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Content</Form.Label>
-          <Form.Control
-            value={content}
-            onChange={(event) => setContent(event.target.value)}
-            type="content"
-            placeholder="Enter content"
-            required
-          />
-        </Form.Group>
+    <div className="edit-form-main">
+      <div>
+        <Container className="edit-form-main">
+          <Form as={Col} md={{ span: 6, offset: 3 }} className="form-field">
+            <h3 className="mt-5 mb-5">Share your story!</h3>
+            <Form.Group>
+              <Form.Label className="form-field-inner">Name</Form.Label>
+              <Form.Control
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+                type="text"
+                placeholder="Enter name"
+                required
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label className="form-field-inner">Content</Form.Label>
+              <Form.Control
+                value={content}
+                onChange={(event) => setContent(event.target.value)}
+                type="content"
+                placeholder="Enter content"
+                required
+              />
+            </Form.Group>
 
-        <Form.Group>
-          <Form.Label>Image</Form.Label>
-          <Form.Control
-            value={imageUrl}
-            onChange={(event) => setImageUrl(event.target.value)}
-            type="imageUrl"
-            placeholder="imageUrl"
-            required
-          />
-        </Form.Group>
-        <h3>Image Preview</h3>
-        <img src={imageUrl} />
-        {validationErrorMessage === true ? (
-          <p className="error-message">Please fill in all the fields above</p>
-        ) : undefined}
-        <Form.Group className="mt-5">
-          <Button variant="primary" type="submit" onClick={submitForm}>
-            Post your cool story bro!
-          </Button>
-        </Form.Group>
-      </Form>
-    </Container>
+            <Form.Group>
+              <Form.Label className="form-field-inner">Image</Form.Label>
+              <Form.Control
+                value={imageUrl}
+                onChange={(event) => setImageUrl(event.target.value)}
+                type="imageUrl"
+                placeholder="imageUrl"
+                required
+              />
+            </Form.Group>
+            <h3>Image Preview</h3>
+            <img src={imageUrl} />
+            {validationErrorMessage === true ? (
+              <p className="error-message">
+                Please fill in all the fields above
+              </p>
+            ) : undefined}
+            <Form.Group className="mt-5">
+              <Button variant="primary" type="submit" onClick={submitForm}>
+                Post your cool story bro!
+              </Button>
+            </Form.Group>
+          </Form>
+        </Container>
+      </div>
+    </div>
   );
 }

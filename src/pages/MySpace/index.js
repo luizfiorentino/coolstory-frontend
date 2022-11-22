@@ -73,160 +73,6 @@ export default function MySpace() {
     setShowForm(true);
   }
 
-  const SendForm = () => {
-    function submitForm(event) {
-      event.preventDefault();
-      if (!name || !content || !imageUrl) {
-        setValidationErrorMessage(true);
-        return;
-      }
-      dispatch(postStory(name, content, imageUrl, spaceId));
-      setShowForm(false);
-      setSuccessMessage(true);
-      setContent("");
-      setImageUrl("");
-      setName("");
-      setValidationErrorMessage(false);
-    }
-
-    return (
-      <Container>
-        <Form as={Col} md={{ span: 6, offset: 3 }} className="mt-5">
-          <h1 className="mt-5 mb-5">Share your story!</h1>
-          <Form.Group>
-            <Form.Label>Name</Form.Label>
-            <Form.Control
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-              type="text"
-              placeholder="Enter name"
-              required
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Content</Form.Label>
-            <Form.Control
-              value={content}
-              onChange={(event) => setContent(event.target.value)}
-              type="content"
-              placeholder="Enter content"
-              required
-            />
-          </Form.Group>
-
-          <Form.Group>
-            <Form.Label>Image</Form.Label>
-            <Form.Control
-              value={imageUrl}
-              onChange={(event) => setImageUrl(event.target.value)}
-              type="imageUrl"
-              placeholder="imageUrl"
-              required
-            />
-          </Form.Group>
-          <h3>Image Preview</h3>
-          <img src={imageUrl} />
-          {validationErrorMessage === true ? (
-            <h3>Please fill in all the fields above</h3>
-          ) : undefined}
-          <Form.Group className="mt-5">
-            <Button variant="primary" type="submit" onClick={submitForm}>
-              Post your cool story bro!
-            </Button>
-          </Form.Group>
-        </Form>
-      </Container>
-    );
-  };
-
-  // const sendEditForm = () => {
-  //   function submitEditForm(event) {
-  //     event.preventDefault();
-
-  //     dispatch(updateSpace(title, description, backgroundColor, color));
-
-  //     setTitle(userSpace.title);
-  //     setDescription(userSpace.description);
-  //     setBackgroundColor(userSpace.backgroundColor);
-  //     setColor(userSpace.color);
-  //     setEditForm(false);
-  //   }
-
-  //   return (
-  //     <div>
-  //       <div>
-  //         <Container>
-  //           <Form as={Col} md={{ span: 6, offset: 3 }} className="mt-5">
-  //             <h1 className="mt-5 mb-5">edit profile</h1>
-  //             <Form.Group>
-  //               <Form.Label>Title</Form.Label>
-
-  //               <Form.Control
-  //                 value={title}
-  //                 onChange={(event) => setTitle(event.target.value)}
-  //                 type="text"
-  //                 placeholder="Enter title"
-  //                 required
-  //               />
-  //             </Form.Group>
-  //             <Form.Group>
-  //               <Form.Label>Description</Form.Label>
-  //               <Form.Control
-  //                 value={description}
-  //                 onChange={(event) => setDescription(event.target.value)}
-  //                 type="text"
-  //                 placeholder="Enter description"
-  //                 required
-  //               />
-  //             </Form.Group>
-
-  //             <Form.Group>
-  //               <Form.Label>Background Color</Form.Label>
-  //               <input
-  //                 type="color"
-  //                 // id="head"
-  //                 // name="head"
-  //                 value={backgroundColor}
-  //                 onChange={(event) => setBackgroundColor(event.target.value)}
-  //               ></input>
-  //               {/* <label for="head">Head</label> */}
-
-  //               <p>
-  //                 {" "}
-  //                 values= {title}, {description}, {backgroundColor}, {color}
-  //               </p>
-  //             </Form.Group>
-  //             <Form.Group>
-  //               <Form.Label>Color</Form.Label>
-  //               <input
-  //                 type="color"
-  //                 // id="head"
-  //                 // name="head"
-  //                 value={color}
-  //                 onChange={(event) => setColor(event.target.value)}
-  //               ></input>
-  //             </Form.Group>
-
-  //             <Form.Group className="mt-5">
-  //               <Button
-  //                 variant="primary"
-  //                 type="submit"
-  //                 onClick={submitEditForm}
-  //               >
-  //                 Edit your space bro!
-  //               </Button>
-  //             </Form.Group>
-  //           </Form>
-  //         </Container>
-  //       </div>
-  //     </div>
-  //   );
-  // };
-
-  // const storiesSortedByDate = userSpace?.stories?.sort(function (a, b) {
-  //   return new Date(b.createdAt) - new Date(a.createdAt);
-  // });
-
   const sort_date = (story_a, story_b) => {
     return story_b.createdAt.localeCompare(story_a.createdAt);
   };
@@ -259,18 +105,22 @@ export default function MySpace() {
             <div className="user-space-description">
               <h4>{userSpace.description}</h4>
             </div>
+
+            <div className="add-story-button">
+              {showStoryForm === false ? (
+                <button onClick={openStoryForm}>Add a story bro!</button>
+              ) : undefined}
+
+              {showStoryForm === true ? (
+                <AddStoryForm hideForm={hideStoryForm} />
+              ) : undefined}
+            </div>
             <div className="user-stories-call">
               {stories.length === 0 || !stories ? (
                 <h5>User posted no stories yet</h5>
               ) : (
                 <h5>Check out my stories</h5>
               )}
-            </div>
-            <div className="add-story-button">
-              <button onClick={openStoryForm}>Add a story bro!</button>
-              {showStoryForm === true ? (
-                <AddStoryForm hideForm={hideStoryForm} />
-              ) : undefined}
             </div>
           </div>
           <div className="stories-container">
@@ -291,9 +141,6 @@ export default function MySpace() {
           {successMessage === true ? (
             <h3>Story Successfully Posted bro!</h3>
           ) : undefined}
-
-          {/* <button onClick={postCoolStory}>Post a cool story bro</button>
-          {showForm === true ? SendForm() : undefined} */}
         </div>
       ) : (
         "loading"
