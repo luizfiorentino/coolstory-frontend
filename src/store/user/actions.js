@@ -25,7 +25,7 @@ export const signUp = (name, email, password) => {
           userSpace: { ...response.data.newSpace, stories: [] },
         })
       );
-      console.log("actions newSpace", response.data.userSpace);
+
       dispatch(addNewSpace({ newUser: response.data.newUser }));
       dispatch(showMessageWithTimeout("success", true, "account created"));
       dispatch(appDoneLoading());
@@ -188,8 +188,6 @@ export const updateSpace = (title, description, backgroundColor, color) => {
     const id = space.id;
 
     if (!id) return;
-
-    console.log("action upSpace", id);
 
     dispatch(appLoading());
     try {

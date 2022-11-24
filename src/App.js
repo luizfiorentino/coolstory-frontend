@@ -15,13 +15,14 @@ import { getUserWithStoredToken } from "./store/user/actions";
 import HeroBanner from "./components/HeroBanner";
 import SpaceDetails from "./pages/SpaceDetails";
 import MySpace from "./pages/MySpace";
+import EditProfileForm from "./components/EditProfileForm";
 
-const Home = () => (
-  <HeroBanner>
-    <h1>Home</h1>
-    <h2>Check out the list of spaces!</h2>
-  </HeroBanner>
-);
+// const Home = () => (
+//   <HeroBanner>
+//     <h1>Home</h1>
+//     <h2>Check out the list of spaces!</h2>
+//   </HeroBanner>
+// );
 const Other = () => (
   <HeroBanner>
     <h1>Other</h1>
@@ -49,6 +50,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/spaces/:id" element={<SpaceDetails />} />
         <Route path="/mySpace" element={<MySpace />} />
+        <Route path="/mySpace/edit" element={<EditProfileForm />} />
       </Routes>
     </div>
   );

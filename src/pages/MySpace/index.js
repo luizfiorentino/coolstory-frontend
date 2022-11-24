@@ -2,18 +2,17 @@ import React from "react";
 import { selectUserSpace } from "../../store/user/selectors";
 import StoryProfile from "../../components/StoryProfile";
 import { useState } from "react";
-import { selectToken } from "../../store/user/selectors";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import EditProfileForm from "../../components/EditProfileForm";
 import AddStoryForm from "../../components/AddStoryForm";
-import { BsDash } from "react-icons/bs";
-import { GiDirectorChair, GiAirplane } from "react-icons/gi";
-import { GrEdit } from "react-icons/gr";
+import { BsDash, BsChatQuote } from "react-icons/bs";
+import { GiAirplane } from "react-icons/gi";
+import { MdAutoStories } from "react-icons/md";
 
 import "./styles.css";
 
 export default function MySpace() {
-  const dispatch = useDispatch();
   const userSpace = useSelector(selectUserSpace);
   function openForm() {
     setEditForm(true);
@@ -23,51 +22,21 @@ export default function MySpace() {
     setStoryForm(true);
   }
 
-  console.log("userSPace", userSpace);
-
-  // const spaceId = userSpace?.id;
-  const spaceId = userSpace?.id;
-  const token = useSelector(selectToken);
   const stories =
     !userSpace || !userSpace.stories ? null : [...userSpace?.stories];
-  console.log("mySpace page userSpace", userSpace);
-  const [showForm, setShowForm] = useState(false);
+
   const [showStoryForm, setStoryForm] = useState(false);
   const [showEditForm, setEditForm] = useState(false);
-  console.log("showEditForm:::", showEditForm);
+
   const [successMessage, setSuccessMessage] = useState(false);
-  const [validationErrorMessage, setValidationErrorMessage] = useState(false);
-
-  const [name, setName] = useState("");
-  const [content, setContent] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-
-  const [title, setTitle] = useState(
-    showEditForm === true ? userSpace.title : null
-  );
-  const [description, setDescription] = useState(
-    showEditForm === true ? userSpace.description : null
-  );
-  const [backgroundColor, setBackgroundColor] = useState(
-    showEditForm === true ? userSpace.backgroundColor : null
-  );
-  const [color, setColor] = useState(
-    showEditForm === true ? userSpace.color : null
-  );
 
   const hideForm = (boolean) => {
     setEditForm(boolean);
-    console.log("callback prop called", boolean);
   };
 
   const hideStoryForm = (boolean) => {
     setStoryForm(boolean);
-    console.log("callback prop called", boolean);
   };
-
-  function postCoolStory() {
-    setShowForm(true);
-  }
 
   const sort_date = (story_a, story_b) => {
     return story_b.createdAt.localeCompare(story_a.createdAt);
@@ -90,7 +59,7 @@ export default function MySpace() {
           <div className="space-header">
             {showEditForm === false ? (
               <button onClick={openForm} className="edit-space-button">
-                Edit space
+                <Link to={`/mySpace/edit`}> Edit space</Link>
               </button>
             ) : undefined}
             {showEditForm === true ? (
@@ -113,14 +82,23 @@ export default function MySpace() {
             </div>
 
             <div className="user-space-description">
-              <h5>{userSpace.description}</h5>
+              <div>
+                <h3>
+                  <BsChatQuote style={{ margin: 2 }} />
+                </h3>
+              </div>
+              <h4> {userSpace.description}</h4>
             </div>
 
             <div className="user-stories-call">
               {stories.length === 0 || !stories ? (
-                <h5>User posted no stories yet</h5>
+                <h5 className="no-posted-stories-message">
+                  User posted no stories yet
+                </h5>
               ) : (
-                <h5 className="user-stories-call">Check out my stories:</h5>
+                <h5 className="user-stories-call">
+                  <MdAutoStories /> Check out my stories <MdAutoStories />;
+                </h5>
               )}
             </div>
             <div className="add-story-button">

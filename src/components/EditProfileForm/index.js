@@ -1,12 +1,15 @@
 import React from "react";
 import { selectUserSpace } from "../../store/user/selectors";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { Col } from "react-bootstrap";
 import { updateSpace } from "../../store/user/actions";
+import DeleteAccount from "../DeleteAccount";
+
 import "./styles.css";
 
 export default function EditProfileForm(props) {
@@ -19,6 +22,7 @@ export default function EditProfileForm(props) {
     userSpace.backgroundColor
   );
   const [color, setColor] = useState(userSpace.color);
+  const [delete_space_Clicked, set_delete_space_clicked] = useState(false);
 
   function submitEditForm(event) {
     event.preventDefault();
@@ -29,12 +33,22 @@ export default function EditProfileForm(props) {
     setDescription(userSpace.description);
     setBackgroundColor(userSpace.backgroundColor);
     setColor(userSpace.color);
+    if (!props.hideForm) {
+      return;
+    }
     props.hideForm(false);
   }
 
+  const deleteSpace = () => {
+    set_delete_space_clicked(!delete_space_Clicked);
+    console.log(delete_space_Clicked);
+  };
+
   return (
     <div className="edit-form-main">
-      <div>
+      {delete_space_Clicked === true ? (
+        <DeleteAccount deleteSpace={deleteSpace} />
+      ) : (
         <Container className="edit-form-main">
           {/* <Form as={Col} className="form-field"> */}
           <Form as={Col} md={{ span: 6, offset: 3 }} className="form-field">
@@ -92,13 +106,19 @@ export default function EditProfileForm(props) {
             </Form.Group>
 
             <Form.Group className="mt-5">
+              <Button variant="primary" type="submit" onClick={deleteSpace}>
+                Delete space
+              </Button>
+            </Form.Group>
+            <Form.Group className="mt-5">
               <Button variant="primary" type="submit" onClick={submitEditForm}>
-                Edit your space bro!
+                <Link to={`/mySpace`}>Edit your space bro!</Link>
               </Button>
             </Form.Group>
           </Form>
         </Container>
-      </div>
+      )}
+      <div></div>
     </div>
   );
 }

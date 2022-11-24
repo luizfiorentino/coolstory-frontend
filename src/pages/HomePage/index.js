@@ -1,10 +1,11 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { allSpacesThunk } from "../../store/spaces/thunks";
 import HeroBanner from "../../components/HeroBanner";
 import SpaceCard from "../../components/SpaceCard";
 import { selectAllSpaces } from "../../store/spaces/selectors";
+
 import "./styles.css";
 
 export default function HomePage() {
@@ -12,7 +13,6 @@ export default function HomePage() {
   const spaces = useSelector(selectAllSpaces);
 
   const allSpaces = spaces ? [...spaces] : null;
-  console.log("HP all spaces:", allSpaces);
 
   const spacesAlphaOrder = (space_a, space_b) => {
     return space_a.title.localeCompare(space_b.title);

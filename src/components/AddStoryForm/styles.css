@@ -28,3 +28,12 @@
 .image-preview-call {
   margin: 2rem 0;
 }
+
+.button-inner {
+  display: flex;
+  align-items: baseline;
+}
+
+.paper-plane {
+  margin-left: 5px;
+}

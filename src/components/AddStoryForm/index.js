@@ -5,6 +5,8 @@ import { Form, Container, Button } from "react-bootstrap/";
 import { useDispatch, useSelector } from "react-redux";
 import { Col } from "react-bootstrap";
 import { postStory } from "../../store/user/actions";
+import { FaRegPaperPlane } from "react-icons/fa";
+import { BiPaperPlane } from "react-icons/bi";
 
 import "./styles.css";
 
@@ -78,7 +80,10 @@ export default function AddStoryForm(props) {
               />
             </Form.Group>
             <h4 className="image-preview-call">Image Preview</h4>
-            <img src={imageUrl} />
+            {!imageUrl ? undefined : (
+              <img alt="oops. something wrong with image Url" src={imageUrl} />
+            )}
+
             {validationErrorMessage === true ? (
               <p className="error-message">
                 Please fill in all the fields above
@@ -86,7 +91,10 @@ export default function AddStoryForm(props) {
             ) : undefined}
             <Form.Group className="mt-4">
               <Button variant="primary" type="submit" onClick={submitForm}>
-                Post your cool story bro!
+                <div className="button-inner">
+                  Post your cool story bro!{" "}
+                  <BiPaperPlane className="paper-plane" />
+                </div>
               </Button>
             </Form.Group>
           </Form>

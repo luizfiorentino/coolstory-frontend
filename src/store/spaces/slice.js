@@ -15,16 +15,14 @@ export const spaceListSlice = createSlice({
     },
     fetchAllSpaces: (state, action) => {
       state.allSpaces = [...action.payload];
-      console.log("from slice action.payload:::", action.payload);
+
       state.loading = false;
     },
     fetchSpaceDetails: (state, action) => {
       state.spaceDetails = action.payload;
-      console.log("space details slice", action.payload);
     },
     addNewSpace: (state, action) => {
       state.allSpaces = [...state.allSpaces, action.payload.newUser];
-      console.log("add space slice=", action.payload);
     },
   },
 });
