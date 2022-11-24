@@ -1,21 +1,17 @@
 import React from "react";
-
 import { selectUserSpace } from "../../store/user/selectors";
 import StoryProfile from "../../components/StoryProfile";
-import { useState, useEffect } from "react";
-import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
-import Button from "react-bootstrap/Button";
-import { signUp } from "../../store/user/actions";
+import { useState } from "react";
 import { selectToken } from "../../store/user/selectors";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import { Col } from "react-bootstrap";
-import { postStory, updateSpace } from "../../store/user/actions";
-import { Next } from "react-bootstrap/esm/PageItem";
 import EditProfileForm from "../../components/EditProfileForm";
 import AddStoryForm from "../../components/AddStoryForm";
+import { BsDash } from "react-icons/bs";
+import { GiDirectorChair, GiAirplane } from "react-icons/gi";
+import { GrEdit } from "react-icons/gr";
+
 import "./styles.css";
+
 export default function MySpace() {
   const dispatch = useDispatch();
   const userSpace = useSelector(selectUserSpace);
@@ -80,7 +76,9 @@ export default function MySpace() {
   return (
     <div className="my-space-main-container">
       {" "}
-      <h4>My Space</h4>
+      <div className="my-space-call">
+        <h4>My Space</h4>
+      </div>
       {userSpace ? (
         <div
           className="main-container"
@@ -90,37 +88,49 @@ export default function MySpace() {
           }}
         >
           <div className="space-header">
+            {showEditForm === false ? (
+              <button onClick={openForm} className="edit-space-button">
+                Edit space
+              </button>
+            ) : undefined}
+            {showEditForm === true ? (
+              <div className="ep-form">
+                {" "}
+                {showEditForm === true ? (
+                  <EditProfileForm hideForm={hideForm} />
+                ) : undefined}
+              </div>
+            ) : undefined}
+
             <div className="user-space-title">
-              <h2 className="title">{userSpace.title}</h2>
-            </div>
-            <div className="edit-space-button">
-              {" "}
-              {showEditForm === false ? (
-                <button onClick={openForm}>Edit my space</button>
-              ) : undefined}
-              {showEditForm === true ? (
-                <EditProfileForm hideForm={hideForm} />
-              ) : undefined}
-            </div>
-            <div className="user-space-description">
-              <h4>{userSpace.description}</h4>
+              <h2 className="title">
+                <div className="space-banner">{userSpace.title}</div>
+                <BsDash />
+                <h1>
+                  <GiAirplane />
+                </h1>
+              </h2>
             </div>
 
+            <div className="user-space-description">
+              <h5>{userSpace.description}</h5>
+            </div>
+
+            <div className="user-stories-call">
+              {stories.length === 0 || !stories ? (
+                <h5>User posted no stories yet</h5>
+              ) : (
+                <h5 className="user-stories-call">Check out my stories:</h5>
+              )}
+            </div>
             <div className="add-story-button">
               {showStoryForm === false ? (
-                <button onClick={openStoryForm}>Add a story bro!</button>
+                <button onClick={openStoryForm}>Post new story</button>
               ) : undefined}
 
               {showStoryForm === true ? (
                 <AddStoryForm hideForm={hideStoryForm} />
               ) : undefined}
-            </div>
-            <div className="user-stories-call">
-              {stories.length === 0 || !stories ? (
-                <h5>User posted no stories yet</h5>
-              ) : (
-                <h5>Check out my stories</h5>
-              )}
             </div>
           </div>
           <div className="stories-container">

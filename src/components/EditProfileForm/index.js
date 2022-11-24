@@ -54,6 +54,8 @@ export default function EditProfileForm(props) {
             <Form.Group>
               <Form.Label className="form-field-inner">Description</Form.Label>
               <Form.Control
+                as="textarea"
+                rows={3}
                 value={description}
                 onChange={(event) => setDescription(event.target.value)}
                 type="text"

@@ -1,19 +1,11 @@
 import React from "react";
-
-import { selectUserSpace, selectStories } from "../../store/user/selectors";
-import StoryProfile from "../../components/StoryProfile";
-import { useState, useEffect } from "react";
-import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
-import Button from "react-bootstrap/Button";
-import { signUp } from "../../store/user/actions";
-import { selectToken } from "../../store/user/selectors";
+import { selectUserSpace } from "../../store/user/selectors";
+import { useState } from "react";
+import { Form, Container, Button } from "react-bootstrap/";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
 import { Col } from "react-bootstrap";
-import { postStory, updateSpace } from "../../store/user/actions";
-import { Next } from "react-bootstrap/esm/PageItem";
-import EditProfileForm from "../../components/EditProfileForm";
+import { postStory } from "../../store/user/actions";
+
 import "./styles.css";
 
 export default function AddStoryForm(props) {
@@ -48,24 +40,29 @@ export default function AddStoryForm(props) {
       <div>
         <Container className="edit-form-main">
           <Form as={Col} md={{ span: 6, offset: 3 }} className="form-field">
-            <h3 className="mt-5 mb-5">Share your story!</h3>
+            <h3 className="mt-5 mb-2">Share your story!</h3>
             <Form.Group>
               <Form.Label className="form-field-inner">Name</Form.Label>
               <Form.Control
                 value={name}
                 onChange={(event) => setName(event.target.value)}
                 type="text"
-                placeholder="Enter name"
+                placeholder="give your story a name"
                 required
               />
             </Form.Group>
+
             <Form.Group>
               <Form.Label className="form-field-inner">Content</Form.Label>
+
               <Form.Control
+                as="textarea"
+                rows={10}
+                className="story-field"
                 value={content}
                 onChange={(event) => setContent(event.target.value)}
                 type="content"
-                placeholder="Enter content"
+                placeholder="enter a content"
                 required
               />
             </Form.Group>
@@ -76,18 +73,18 @@ export default function AddStoryForm(props) {
                 value={imageUrl}
                 onChange={(event) => setImageUrl(event.target.value)}
                 type="imageUrl"
-                placeholder="imageUrl"
+                placeholder="place an imageUrl"
                 required
               />
             </Form.Group>
-            <h3>Image Preview</h3>
+            <h4 className="image-preview-call">Image Preview</h4>
             <img src={imageUrl} />
             {validationErrorMessage === true ? (
               <p className="error-message">
                 Please fill in all the fields above
               </p>
             ) : undefined}
-            <Form.Group className="mt-5">
+            <Form.Group className="mt-4">
               <Button variant="primary" type="submit" onClick={submitForm}>
                 Post your cool story bro!
               </Button>

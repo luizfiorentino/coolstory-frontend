@@ -8,6 +8,16 @@
   padding: 2rem;
 }
 
+.title {
+  margin-left: 5rem;
+  display: flex;
+  align-items: center;
+}
+
+.my-space-call {
+  padding: 1rem;
+}
+
 .user-space-title {
   display: flex;
   flex-direction: column;
@@ -18,8 +28,6 @@
   height: 7rem;
   max-width: 50rem;
   margin-bottom: 2rem;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
 
   align-content: center;
 }
@@ -29,25 +37,52 @@
 }
 
 .edit-space-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+  /* display: flex;
+  justify-content: right;
+  align-items: top;
+  width: 3rem;
+  height: 5%;
   margin-top: 3px;
-  margin-bottom: 1rem;
+  margin-bottom: 1rem; */
+  margin-top: -2rem;
+  margin-bottom: 3rem;
 }
 
+.ep-form {
+  color: black;
+  width: 60rem;
+  margin-bottom: 5rem;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+/* .edit-space-icon {
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: top;
+  width: 100%;
+
+  color: black;
+  height: 27px;
+  margin-right: 5px;
+} */
+
+.user-stories-call {
+}
 .add-story-button {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-top: 3px;
-  margin-bottom: 1rem;
+  margin-top: -2rem;
+  margin-bottom: -2rem;
 }
 
 .user-space-description {
+  width: 50%;
   padding: 1rem;
+  text-align: center;
 }
 
 .user-stories-call {

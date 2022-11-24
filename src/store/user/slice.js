@@ -16,7 +16,6 @@ export const userSlice = createSlice({
       state.token = action.payload.token;
       state.profile = action.payload.user;
       state.userSpace = action.payload.userSpace;
-      console.log(" sliceFROM userSpace:::", action.payload);
     },
     logOut: (state, action) => {
       localStorage.removeItem("token");
@@ -31,8 +30,6 @@ export const userSlice = createSlice({
     postNewStory: (state, action) => {
       const newStory = action.payload.data;
       state.userSpace.stories = [...state.userSpace.stories, newStory];
-
-      console.log("slice new story", action.payload.data);
     },
     deleteStory: (state, action) => {
       state.userSpace.stories = [...state.userSpace.stories].filter(
@@ -48,10 +45,6 @@ export const userSlice = createSlice({
         backgroundColor: backgroundColor,
         color: color,
       };
-      // state.userSpace.title = action.payload.title;
-      // state.userSpace.description = action.payload.description;
-      // state.userSpace.backgroundColor = action.payload.backgroundColor;
-      // state.userSpace.color = action.payload.color;
     },
   },
 });
