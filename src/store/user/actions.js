@@ -7,6 +7,7 @@ import { loginSuccess, logOut, tokenStillValid } from "./slice";
 import { addNewSpace } from "../spaces/slice";
 import { createNextState } from "@reduxjs/toolkit";
 import { postNewStory, deleteStory, updateProfile } from "./slice";
+import { accountDeleted } from "./slice";
 
 export const signUp = (name, email, password) => {
   return async (dispatch, getState) => {
@@ -210,5 +211,14 @@ export const updateSpace = (title, description, backgroundColor, color) => {
       console.log(e);
       dispatch(appDoneLoading());
     }
+  };
+};
+
+export const deleteAccount = (userId) => {
+  return async (dispatch, getState) => {
+    const deletedAccount = await axios.delete(`${apiUrl}/auth/${userId}`);
+
+    dispatch(accountDeleted());
+    console.log("thunks account deleted");
   };
 };

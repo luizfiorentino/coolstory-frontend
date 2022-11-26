@@ -15,6 +15,7 @@ import "./styles.css";
 export default function SpaceDetails() {
   const dispatch = useDispatch();
   const details = useSelector(selectSpaceDetails);
+  console.log("DETAILS", details);
 
   const spaceId = useParams().id;
 

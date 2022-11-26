@@ -46,6 +46,11 @@ export const userSlice = createSlice({
         color: color,
       };
     },
+    accountDeleted: (state, action) => {
+      state.userSpace = null;
+      state.token = null;
+      state.profile = null;
+    },
   },
 });
 
@@ -56,6 +61,7 @@ export const {
   deleteStory,
   postNewStory,
   updateProfile,
+  accountDeleted,
 } = userSlice.actions;
 
 export default userSlice.reducer;

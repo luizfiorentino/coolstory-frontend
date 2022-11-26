@@ -1,7 +1,7 @@
 import React from "react";
 import { selectUserSpace } from "../../store/user/selectors";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
@@ -11,21 +11,27 @@ import { updateSpace } from "../../store/user/actions";
 import DeleteAccount from "../DeleteAccount";
 
 import "./styles.css";
+import { GiCogLock } from "react-icons/gi";
 
 export default function EditProfileForm(props) {
   const dispatch = useDispatch();
   const userSpace = useSelector(selectUserSpace);
+  const navigate = useNavigate();
 
-  const [title, setTitle] = useState(userSpace.title);
-  const [description, setDescription] = useState(userSpace.description);
-  const [backgroundColor, setBackgroundColor] = useState(
-    userSpace.backgroundColor
+  const [title, setTitle] = useState(userSpace ? userSpace.title : null);
+  const [edited, setEdited] = useState(false);
+  const [description, setDescription] = useState(
+    userSpace ? userSpace.description : null
   );
-  const [color, setColor] = useState(userSpace.color);
+  const [backgroundColor, setBackgroundColor] = useState(
+    userSpace ? userSpace.backgroundColor : null
+  );
+  const [color, setColor] = useState(userSpace ? userSpace.color : null);
   const [delete_space_Clicked, set_delete_space_clicked] = useState(false);
 
   function submitEditForm(event) {
     event.preventDefault();
+    setEdited(true);
 
     dispatch(updateSpace(title, description, backgroundColor, color));
 
@@ -43,6 +49,12 @@ export default function EditProfileForm(props) {
     set_delete_space_clicked(!delete_space_Clicked);
     console.log(delete_space_Clicked);
   };
+
+  useEffect(() => {
+    if (edited == true) {
+      navigate("/mySpace");
+    }
+  }, [edited, navigate]);
 
   return (
     <div className="edit-form-main">
@@ -111,8 +123,13 @@ export default function EditProfileForm(props) {
               </Button>
             </Form.Group>
             <Form.Group className="mt-5">
-              <Button variant="primary" type="submit" onClick={submitEditForm}>
-                <Link to={`/mySpace`}>Edit your space bro!</Link>
+              <Button
+                className="edit-button"
+                variant="primary"
+                type="submit"
+                onClick={submitEditForm}
+              >
+                Edit your space bro!{" "}
               </Button>
             </Form.Group>
           </Form>
