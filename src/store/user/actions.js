@@ -8,6 +8,7 @@ import { addNewSpace } from "../spaces/slice";
 import { createNextState } from "@reduxjs/toolkit";
 import { postNewStory, deleteStory, updateProfile } from "./slice";
 import { accountDeleted } from "./slice";
+import { deleteThisSpace } from "../spaces/slice";
 
 export const signUp = (name, email, password) => {
   return async (dispatch, getState) => {
@@ -177,6 +178,15 @@ export const deleteThisStory = (storyId) => {
   };
 };
 
+// export const deleteStoriesFromSpace = async (spaceId) => {
+//   return async (dispatch, getState) => {
+//     dispatch(appLoading());
+//     const deletedStories = await axios.delete(`/storiesBySpaceId/${spaceId}`);
+//     console.log("stories deleted");
+//     dispatch(appDoneLoading());
+//   };
+// };
+
 export const updateSpace = (title, description, backgroundColor, color) => {
   return async (dispatch, getState) => {
     // get token from the state
@@ -214,10 +224,22 @@ export const updateSpace = (title, description, backgroundColor, color) => {
   };
 };
 
-export const deleteAccount = (userId) => {
+export const deleteAccount = (userId, spaceId) => {
   return async (dispatch, getState) => {
     const deletedAccount = await axios.delete(`${apiUrl}/auth/${userId}`);
+    const deletedStories = await axios.delete(
+      `${apiUrl}/storiesBySpaceId/${spaceId}`
+    );
+    const spaceToDelete = await axios.delete(`${apiUrl}/spaces/${spaceId}`);
 
+    const response = [
+      spaceToDelete.data,
+      deletedStories.data,
+      deletedAccount.data,
+    ];
+    console.log("from thunk userId and spaceId", userId, spaceId);
+
+    dispatch(deleteThisSpace(spaceId));
     dispatch(accountDeleted());
     console.log("thunks account deleted");
   };

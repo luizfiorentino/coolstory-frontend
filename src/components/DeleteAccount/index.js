@@ -7,24 +7,27 @@ import { spaceDetailsThunk } from "../../store/spaces/thunks";
 import { useNavigate } from "react-router-dom";
 import { deleteAccount } from "../../store/user/actions";
 import { deleteThisSpace } from "../../store/spaces/slice";
+import { deleteStoriesFromSpace } from "../../store/user/actions";
 
 export default function DeleteAccount(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const details = useSelector(spaceDetails);
   const spaceId = details.id;
-  const idUser = details.userId;
+  const userId = details.userId;
   console.log("spaceIDDD", spaceId);
 
   const deleteSpace = (id) => {
-    if (!spaceId) {
+    if (!spaceId || !userId) {
       console.log("id not found");
       return;
     }
-    dispatch(spaceDelete(spaceId));
-    dispatch(deleteThisSpace(spaceId));
-    dispatch(deleteAccount(idUser));
-    console.log("delete page idUser", idUser);
+    dispatch(deleteAccount(userId, spaceId));
+    // dispatch(deleteStoriesFromSpace(spaceId));
+    // dispatch(spaceDelete(spaceId));
+    // dispatch(deleteThisSpace(spaceId));
+
+    console.log("delete page idUser", userId);
     navigate("/");
     console.log("succeeded", spaceId);
   };
