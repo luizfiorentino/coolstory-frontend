@@ -1,0 +1,35 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.warning-message {
+  display: flex;
+  flex-direction: column;
+  background-color: red;
+  justify-content: center;
+  width: 30%;
+  border: 1px solid black;
+  padding: 2rem;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2rem;
+}
+
+.delete-button {
+  display: flex;
+  flex-direction: row;
+  margin-right: 1rem;
+}
+.cancel-button {
+  display: flex;
+  flex-direction: row;
+  margin-left: 1rem;
+}

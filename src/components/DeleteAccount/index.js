@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { deleteAccount } from "../../store/user/actions";
 import { deleteThisSpace } from "../../store/spaces/slice";
 import { deleteStoriesFromSpace } from "../../store/user/actions";
+import "./styles.css";
 
 export default function DeleteAccount(props) {
   const dispatch = useDispatch();
@@ -37,15 +38,23 @@ export default function DeleteAccount(props) {
   }, [dispatch]);
 
   return (
-    <div>
-      <h3>
-        Attention! By clicking "Confirm" your account will be ended, and all My
-        Space's information including stories will be deleted.
-      </h3>
+    <div className="main-container">
+      <div className="warning-message">
+        <h3>
+          Attention! By clicking "Confirm" your account, space and stories will
+          be deleted.
+        </h3>
+        <h4>Are you sure bro?</h4>
+      </div>
+      <div className="buttons">
+        <div className="delete-button">
+          <button onClick={() => deleteSpace(spaceId)}>Confirm</button>
+        </div>
 
-      <button onClick={() => deleteSpace(spaceId)}>Confirm</button>
-
-      <button onClick={props.deleteSpace}>Cancel</button>
+        <div className="cancel-button">
+          <button onClick={props.deleteSpace}>Cancel</button>
+        </div>
+      </div>
     </div>
   );
 }
